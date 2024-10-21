@@ -22,7 +22,8 @@ db.on('error', function(error) {
 });
 
 async function connect(){
-    const mongoUri     = `mongodb+srv://${config.mongo_user}:${config.mongo_pass}@${config.mongo_uri}/${config.mongo_db}`;
+    //const mongoUri     = `mongodb+srv://${config.mongo_user}:${config.mongo_pass}@${config.mongo_uri}/${config.mongo_db}`;
+    const mongoUri     =  "mongodb://localhost:27017/db";
   
     const options: ConnectionOptions = {
         useNewUrlParser: true,
