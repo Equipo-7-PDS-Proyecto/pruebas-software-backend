@@ -12,11 +12,31 @@ router.get('/all', async (req : Request, res : Response, next: NextFunction) => 
 
 });
 
-
 router.get('/:id', async (req : Request, res : Response, next : NextFunction) => {
     const id : string = req.params['id'];
 
-    handler.verification(controller.getUserByDiscordId,[id],res,next)
+    handler.verification(controller.getUserById,[id],res,next)
+});
+
+// Ruta para crear un nuevo usuario (registro)
+router.post('/register', async (req: Request, res: Response, next: NextFunction) => {
+    const { name, pass, email, user_type } = req.body;
+
+    // Creamos un objeto que cumple con la interfaz UserI
+    const newUser: User = {
+        name,
+        pass,
+        email,
+        user_type
+    } as User;
+    
+    handler.verification(controller.addUser,[newUser],res,next);
+});
+
+router.post('/login', async (req: Request, res: Response, next: NextFunction) => {
+    const { email, pass } = req.body;
+
+    handler.verification(controller.loginUser,[{ email, pass }],res,next);
 });
 
 export default router;

@@ -1,15 +1,13 @@
-import mongooseModule from "./storage/mongoose.module"
-
+import mongooseModule from "./storage/mongoose.module";
 import express, { NextFunction, Express, Request, Response } from 'express';
 import morgan from "morgan";
 import cors from "cors";
-import components from "./components/index"
+import components from "./components/index";
 import response from './middlewares/response.middleware'; 
-
 import config from "../config";
 
-
-async function main(){
+// Creamos la función para configurar el servidor
+function createServer(): Express {
     const server: Express = express();
 
     server.use(express.json());
@@ -21,20 +19,26 @@ async function main(){
 
     server.use('/api', ...components);
     
-    server.use((err:Error,req:Request,res:Response,next:NextFunction)=>{
-        response.error(res,"error");
-      })
+    server.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+        response.error(res, "error");
+    });
 
+    return server;
+}
+
+// Conectamos a la base de datos y levantamos el servidor
+async function main() {
+    const server = createServer();
     
-    try{
+    try {
         await mongooseModule.connect();
-        //console.log("Mongoose connection successful");
         server.listen(config.port, () => {
             console.log("servidor escuchando en: http://localhost:" + config.port);
         });
-    }catch (error){
-        console.log(error)
+    } catch (error) {
+        console.log(error);
     }
 }
 
+export { createServer };
 export default { main };

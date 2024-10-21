@@ -5,33 +5,31 @@ async function addUser(User : User): Promise<User>{
     return model.create<User>(User)
 }
 
-async function deleteUserByDiscordId(id : string){
-    return model.findByIdAndRemove({discordId : id}).populate('lastSession').populate('companies')
+async function deleteUserById(id : string){
+    return model.findByIdAndRemove({_id : id})
 }
     
-async function getUserByDiscordId(id : string):Promise<User | null>{
-    return model.findOne({discordId : id}).populate('lastSession').populate('companies')
+async function getUserById(id : string):Promise<User | null>{
+    return model.findById(id)
 }
-async function getUserByTrelloId(trelloId : string):Promise<User | null>{
-    return model.findOne({identifiers : {$elemMatch: {id: trelloId, platform: 'trello'}}}).populate('lastSession').populate('companies')
+
+async function getUserByEmail(email : string):Promise<User | null>{
+    return model.findOne({email : email});
 }
 
 async function getUsers():Promise<User[] | null>{
-    return model.find().populate('lastSession').populate('companies')
+    return model.find()
 }
 
-async function updateUserByDiscordId(id : string, User:Partial<User>):Promise<User|null>{
-    return model.findOneAndUpdate({discordId: id}, User)
+async function updateUserById(id : string, User:Partial<User>):Promise<User|null>{
+    return model.findOneAndUpdate({_id: id}, User)
 }
-async function getUsersByCompanyId(id:string){
-    return model.find({company:id})
-}
+
 export default{
     addUser,
-    deleteUserByDiscordId,
-    getUserByDiscordId,     // filterById
-    getUserByTrelloId,
+    deleteUserById,
+    getUserById,     // filterById,
+    getUserByEmail,
     getUsers,               // list
-    updateUserByDiscordId,  // patch
-    getUsersByCompanyId
+    updateUserById,  // patch
 }

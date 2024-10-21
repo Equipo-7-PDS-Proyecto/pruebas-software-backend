@@ -23,15 +23,14 @@ db.on('error', function(error) {
 
 async function connect(){
     const mongoUri     = `mongodb+srv://${config.mongo_user}:${config.mongo_pass}@${config.mongo_uri}/${config.mongo_db}`;
-    const mongoUriPort = `mongodb://${config.mongo_user}:${config.mongo_pass}@${config.mongo_uri}:${config.mongo_port}/${config.mongo_db}?authSource=admin`;
-    
+  
     const options: ConnectionOptions = {
         useNewUrlParser: true,
         useUnifiedTopology :true,
         useCreateIndex: true,
         useFindAndModify: false
     };
-    mongoose.connect(`${(config.mongo_port)?mongoUriPort:mongoUri}`, options,
+    mongoose.connect(`${mongoUri}`, options,
     (err) => {
         if (err) {
           console.error('Failed to connect to mongo on startup - retrying in 5 sec');
@@ -40,4 +39,8 @@ async function connect(){
       });
 }
 
-export default {connect};
+async function disconnect(){
+  mongoose.disconnect();
+}
+
+export default {connect, disconnect};

@@ -1,31 +1,33 @@
-import {model, Schema, Document, Model} from "mongoose";
+import {model, Schema, Model} from "mongoose";
 import { User as UserI } from "../../models/user.model";
-
+import { UserType } from "../../models/user.model";
+import bcrypt from "bcrypt";
 
 const definition = {
-    discordId: {
-        type: String,
-        required: true
-    },
-    identifiers: [{
-        id: {type: String, required: true},
-        platform: {type: String, required: true}
-    }],
-    lastSession: { type: Schema.Types.ObjectId, ref: 'Session' },
-    companies: [{ type: Schema.Types.ObjectId, ref: 'Company' }],
-    profile: {
-        name: {type: String, required: true},
-        surname: {type: String, required: true},
-        birthday: {type: String, required: true}
-    },
-    /*hours: {
-        day:  {type: Number},
-        week:  {type: Number},
-        month:  {type: Number}
-    }*/
-};
+    name: { type: String, required: true },
+    pass: { type: String, required: true },
+    email: { type: String, required: true, unique: true, match: [/.+@.+\..+/, 'Invalid email'] },
+    user_type: { type: Number, enum: UserType, default: UserType.Regular },
+}
 
-const schema = new Schema(definition);
+const schema = new Schema(definition, { timestamps: true });
+
+// Método para hashear la contraseña antes de guardarla
+schema.pre('save', async function(next) {
+    const user = this as UserI;
+    if (!user.isModified('pass')) return next();
+    
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(user.pass, salt);
+    user.pass = hash;
+    next();
+});
+
+// Método para comparar la contraseña
+schema.methods.comparePassword = async function (candidatePassword: string) {
+    const user = this as UserI;  // Definir correctamente el tipo de `this`
+    return await bcrypt.compare(candidatePassword, user.pass); // Compara la contraseña con el hash almacenado
+};
 
 const User : Model<UserI> = model<UserI>('User',schema,'users');
 

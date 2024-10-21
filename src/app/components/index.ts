@@ -1,8 +1,8 @@
 import { Express } from "express";
-import history from "./history";
-import session from "./session";
 import user from "./user"
+import clothe from "./clothe"
+import transaction from "./transaction";
 
-const components : Express[] = [history, session, user];
+const components : Express[] = [user, clothe, transaction];
 
 export default components;
