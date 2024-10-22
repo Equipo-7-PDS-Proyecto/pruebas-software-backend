@@ -32,7 +32,7 @@ async function main() {
     
     try {
         await mongooseModule.connect();
-        server.listen(config.port, () => {
+        server.listen(6000, "0.0.0.0",() => {
             console.log("servidor escuchando en: http://localhost:" + config.port);
         });
     } catch (error) {
