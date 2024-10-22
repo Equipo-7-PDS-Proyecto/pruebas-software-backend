@@ -16,6 +16,7 @@ describe('Transaction Routes', () => {
     let consoleErrorStub: any;
     let clothe1 : ClotheI;
     let clothe2 : ClotheI;
+    let clothe3 : ClotheI;
     let user : UserI
     before(async () => {
         consoleErrorStub = sinon.stub(console, 'error');
@@ -57,6 +58,18 @@ describe('Transaction Routes', () => {
             clothe_color: 'red',
             available_count: 5
         });
+
+        clothe3 = await Clothe.create({
+            name: 'NotEnoughShirt',
+            description: 'A bad shirt',
+            price: 59.99,
+            url_photo: 'http://example.com/shirt.png',
+            category: 'shirts',
+            clothe_type: 'shirt',
+            clothe_size: 'M',
+            clothe_color: 'blue',
+            available_count: 1
+        });
     });
 
     after(async () => {
@@ -97,6 +110,7 @@ describe('Transaction Routes', () => {
         });
 
         it('should return 400 for missing or invalid fields in the request', (done) => {
+
             const invalidPurchaseData = {
                 user: '',
                 cart: []  // Carrito vacío o datos inválidos
@@ -112,5 +126,29 @@ describe('Transaction Routes', () => {
                     done();
                 });
         });
+
+        it('should return 500 for not enough item in inventory', (done) => {
+            const purchaseData = {
+                user: user.id,  // Suponiendo que usamos el ID del usuario
+                cart: [
+                    {
+                        clothe_id: clothe3.id,  // Asegúrate de usar IDs válidos de prendas creadas
+                        quantity: 2,
+                        amount: 59.99
+                    }
+                ]
+            };
+
+            chai.request(server)
+                .post('/api/transaction/purchase')
+                .send(purchaseData)
+                .end((err, res) => {
+                    expect(res).to.have.status(500);
+                    //expect(res.body).to.have.property('status', 400);
+                    //expect(res.body).to.have.property('message', 'Invalid request format or empty cart');
+                    done();
+                });
+        });
+
     });
 });

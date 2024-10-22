@@ -26,10 +26,15 @@ function updateTransactionById(id: string, transaction: Partial<Transaction>): P
     return repository.updateTransactionById(id, transaction);
 }
 
+function getSalesReport(start_date : string, end_date : string){
+    return repository.getSalesReport(start_date, end_date);
+}
+
 export default {
     addTransaction,
     deleteTransactionById,
     getTransactionById,
     getTransactions,
     updateTransactionById,
+    getSalesReport
 };
