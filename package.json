@@ -7,8 +7,10 @@
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
     "test": "mocha --require ts-node/register ./src/app/test/**/*.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
-  },
+    "start": "pm2 start dist/index.js --name \"my-app\"",
+    "stop": "pm2 stop my-app",
+    "restart": "pm2 restart my-app"
+},
   "repository": {
     "type": "git",
     "url": "https://github.com/Feria-Memorandum/backendDDM.git"
