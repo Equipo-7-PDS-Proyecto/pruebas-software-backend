@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "test": "mocha --require ts-node/register ./src/app/test/**/*.ts"
+    "test": "mocha --require ts-node/register ./src/app/test/**/*.ts",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "repository": {
     "type": "git",
