@@ -13,7 +13,7 @@ La herramienta de testing **Mocha** junto con **Chai** se ha utilizado para real
 
 ## Descripción del trabajo realizado
 
-# TO DO
+Neon Threads es un proyecto de tienda de ropa en línea que busca ofrecer a los usuarios una experiencia moderna y fluida para la compra de ropa. El frontend está desarrollado en React con TypeScript y utiliza Next.js para la estructura de rutas y el renderizado eficiente del lado del servidor (App Router). Además, se usa Tailwind CSS para estilizar la interfaz, proporcionando una apariencia minimalista y atractiva. El backend se realizó en Node.js, se utilizó MongoDB como base de datos y además se subió la solución a la nube de AWS.
 
 ## Dependencias entre la herramienta y la aplicación
 
