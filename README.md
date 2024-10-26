@@ -1,6 +1,9 @@
 
 # Readme de Instalación
 
+# Video
+https://www.youtube.com/watch?v=sBvolwws3io
+
 ## Alcances de la herramienta de testing (Mocha Chai)
 
 La herramienta de testing **Mocha** junto con **Chai** se ha utilizado para realizar pruebas unitarias a nivel de la capa de **network** en el backend. Esto significa que hemos testeado el flujo completo desde las rutas de red hasta el controlador, el repositorio y finalmente el esquema de base de datos. Si bien las pruebas son unitarias, cubren una gran parte de la funcionalidad de la aplicación al simular las peticiones HTTP que atraviesan estas capas.
