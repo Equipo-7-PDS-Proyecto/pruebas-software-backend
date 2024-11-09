@@ -8,6 +8,8 @@ const definition = {
     pass: { type: String, required: true },
     email: { type: String, required: true, unique: true, match: [/.+@.+\..+/, 'Invalid email'] },
     user_type: { type: Number, enum: UserType, default: UserType.Regular },
+    address: {type: String, default: ""},
+    phone_number: {type: String, default: ""}
 }
 
 const schema = new Schema(definition, { timestamps: true });

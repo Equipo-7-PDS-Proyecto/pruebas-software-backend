@@ -13,4 +13,6 @@ export interface User extends Document {
     email: string;
     user_type: UserType;  // Usamos un enum para clarificar los tipos de usuario
     comparePassword: (candidatePassword: string) => Promise<boolean>; // Para comparar el hash de la contraseña
+    address: string;
+    phone_number: string;
 }
