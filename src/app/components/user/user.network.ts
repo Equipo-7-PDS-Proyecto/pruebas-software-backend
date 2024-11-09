@@ -39,4 +39,10 @@ router.post('/login', async (req: Request, res: Response, next: NextFunction) =>
     handler.verification(controller.loginUser,[{ email, pass }],res,next);
 });
 
+router.put('/:id', async (req: Request, res: Response, next: NextFunction) => {
+    const id: string = req.params['id'];
+    const updatedUser = req.body;
+    handler.verification(controller.updateUserById, [id, updatedUser], res, next);
+});
+
 export default router;
