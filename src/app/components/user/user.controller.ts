@@ -16,7 +16,9 @@ function addUser(user: User): Promise<{ name: string; email: string; user_type: 
             return {
                 name: userWithoutPass.name,
                 email: userWithoutPass.email,
-                user_type: userWithoutPass.user_type
+                user_type: userWithoutPass.user_type,
+                address: userWithoutPass.address,
+                phone_number: userWithoutPass.phone_number
             };
         });
 }
