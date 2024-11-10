@@ -41,7 +41,7 @@ function main() {
         const server = createServer();
         try {
             yield mongoose_module_1.default.connect();
-            server.listen(config_1.default.port, () => {
+            server.listen(6000, "0.0.0.0", () => {
                 console.log("servidor escuchando en: http://localhost:" + config_1.default.port);
             });
         }

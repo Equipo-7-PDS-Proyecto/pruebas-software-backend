@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const config_1 = __importDefault(require("../../config"));
 var db = mongoose_1.default.connection;
 db.on('connecting', function () {
     console.log('%s\x1b[32m%s\x1b[0m', '[storage] ', 'Conectandose a Mongo...');
@@ -31,7 +30,8 @@ db.on('error', function (error) {
 });
 function connect() {
     return __awaiter(this, void 0, void 0, function* () {
-        const mongoUri = `mongodb+srv://${config_1.default.mongo_user}:${config_1.default.mongo_pass}@${config_1.default.mongo_uri}/${config_1.default.mongo_db}`;
+        //const mongoUri     = `mongodb+srv://${config.mongo_user}:${config.mongo_pass}@${config.mongo_uri}/${config.mongo_db}`;
+        const mongoUri = "mongodb://localhost:27017/db";
         const options = {
             useNewUrlParser: true,
             useUnifiedTopology: true,
