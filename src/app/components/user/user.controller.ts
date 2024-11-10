@@ -3,7 +3,7 @@ import { User } from "../../models/user.model";
 import bcrypt from "bcrypt";
 
 // Método para agregar un usuario, sin devolver la contraseña
-function addUser(user: User): Promise<{ name: string; email: string; user_type: number }> {
+function addUser(user: User): Promise<{ name: string; email: string; user_type: number}> {
     return repository.addUser(user)
         .then(savedUser => {
             // Convertir el documento de Mongoose a un objeto plano
@@ -17,14 +17,12 @@ function addUser(user: User): Promise<{ name: string; email: string; user_type: 
                 name: userWithoutPass.name,
                 email: userWithoutPass.email,
                 user_type: userWithoutPass.user_type,
-                address: userWithoutPass.address,
-                phone_number: userWithoutPass.phone_number
             };
         });
 }
 
 // Método para login
-async function loginUser({ email, pass }: { email: string, pass: string }): Promise<{ id : string; user_type: number } | null> {
+async function loginUser({ email, pass }: { email: string, pass: string }): Promise<{ id : string; user_type: number; address: string; phone_number: string; name: string  } | null> {
     const user = await repository.getUserByEmail(email); // Obtener el usuario por email
     if (!user) {
         return null; // Si no encuentra al usuario, retorna null
@@ -42,7 +40,10 @@ async function loginUser({ email, pass }: { email: string, pass: string }): Prom
     // Retornamos solo las propiedades necesarias
     return {
         id : userWithoutPass._id,
-        user_type: userWithoutPass.user_type
+        user_type: userWithoutPass.user_type,
+        address: userWithoutPass.address,
+        phone_number: userWithoutPass.phone_number,
+        name : userWithoutPass.name
     };
 }
 
