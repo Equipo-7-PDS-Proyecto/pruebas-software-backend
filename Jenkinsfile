@@ -49,7 +49,7 @@ pipeline {
                 script {
                     // Usa pm2 para correr la aplicación de manera permanente en producción
                     sh 'npx pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
-                    sh 'export JENKINS_NODE_COOKIE=dontKillMe; npx pm2 start dist/index.js --name backend'  // Cambia 'dist/index.js' según tu archivo de inicio
+                    sh 'JENKINS_NODE_COOKIE=dontKillMe npx pm2 start dist/index.js --name backend'  // Cambia 'dist/index.js' según tu archivo de inicio
                 }
             }
         }
