@@ -1,5 +1,11 @@
 # Pruebas-software-backend
 
+# Entregable 1
+Este READ ME
+
+# Entregable 2
+Subido como entregable_2.pdf
+
 # Video E1
 https://www.youtube.com/watch?v=sBvolwws3io
 
