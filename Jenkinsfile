@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         PATH = "${env.WORKSPACE}/node_modules/.bin:${env.PATH}"
-        PM2_HOME = "${env.WORKSPACE}/.pm2"
         BUILD_ID='dontKillMe'
     }
     tools {
@@ -48,7 +47,7 @@ pipeline {
             steps {
                 script {
                     // Usa pm2 para correr la aplicación de manera permanente en producción
-                    sh 'npx pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
+                    sh 'pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
                     sh 'nohup pm2 start dist/index.js --name backend > pm2.log 2>&1 &'
                 }
             }
