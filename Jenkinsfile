@@ -49,7 +49,7 @@ pipeline {
                 script {
                     // Usa pm2 para correr la aplicación de manera permanente en producción
                     sh 'npx pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
-                    sh 'nohup npx pm2 start dist/index.js --name backend > pm2.log 2>&1 &'  // Cambia 'dist/index.js' según tu archivo de inicio
+                    sh 'npx pm2 start dist/index.js --name backend --no-daemon &'  // Cambia 'dist/index.js' según tu archivo de inicio
                 }
             }
         }
