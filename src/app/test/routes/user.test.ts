@@ -14,7 +14,7 @@ describe('User Routes', () => {
     before(async () => {
         consoleErrorStub = sinon.stub(console, 'error');
         server = createServer();
-        await mongooseModule.connect();
+        await mongooseModule.connect_testing();
         await User.deleteMany({});
 
         const user = await User.create({

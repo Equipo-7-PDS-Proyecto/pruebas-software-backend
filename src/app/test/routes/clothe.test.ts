@@ -14,7 +14,7 @@ describe('Clothe Routes', () => {
     before(async () => {
         consoleErrorStub = sinon.stub(console, 'error');
         server = createServer();
-        await mongooseModule.connect();
+        await mongooseModule.connect_testing();
         await Clothe.deleteMany({});
 
         // Crear una prenda inicial para las pruebas
