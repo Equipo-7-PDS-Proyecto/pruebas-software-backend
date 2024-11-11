@@ -17,6 +17,7 @@ pipeline {
         }
         stage('Correr Tests') {
             steps {
+                sh 'sudo systemctl stop backend.service || true'
                 sh 'npm run build && npx mocha --exit --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/app/test/**/*.js'
             }
             post {
@@ -43,7 +44,7 @@ pipeline {
             steps {
                 script {
                     // Detiene la instancia de la aplicación si está en ejecución
-                    sh 'sudo systemctl stop backend.service || true'
+                    // sh 'sudo systemctl stop backend.service || true'
                     // Copia los archivos necesarios para el despliegue
                     sh "sudo cp -r ${WORKSPACE}/dist /home/ec2-user/pruebas-software-backend/"
                     // Inicia el servicio
