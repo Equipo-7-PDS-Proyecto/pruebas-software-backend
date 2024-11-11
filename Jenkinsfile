@@ -4,6 +4,9 @@ pipeline {
         NODE_ENV = 'production'
         // Agrega otras variables de entorno si son necesarias
     }
+    tools {
+        nodejs 'node js'
+    }
     stages {
         stage('Instalar Dependencias') {
             steps {
