@@ -2,8 +2,7 @@ pipeline {
     agent any
     environment {
         PATH = "${env.WORKSPACE}/node_modules/.bin:${env.PATH}"
-        PM2_HOME = "${env.WORKSPACE}/.pm2"
-        BUILD_ID='dontKillMe'
+        BUILD_ID = 'dontKillMe'
     }
     tools {
         nodejs 'node js'
@@ -16,23 +15,19 @@ pipeline {
                 }
             }
         }
-        //stage('Correr Tests') {
-          //  steps {
-                // Ejecuta las pruebas y genera un archivo de reporte en formato JUnit
-            //    sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/test/**/*.js'
-            //}
-            //post {
-             //   always {
-                    // Publica los resultados del reporte JUnit, independientemente de si pasa o falla
-               //     junit 'reports/test-results.xml'
-                //}
-                //failure {
-                    // Si las pruebas fallan, detén el pipeline
-                 //   echo 'Tests failed. Stopping pipeline.'
-                   // error('Tests failed')
-                //}
-            //}
-        //}
+        // stage('Correr Tests') {
+        //     steps {
+        //         sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/test/**/*.js'
+        //     }
+        //     post {
+        //         always {
+        //             junit 'reports/test-results.xml'
+        //         }
+        //         failure {
+        //             error('Tests failed')
+        //         }
+        //     }
+        // }
         stage('Compilar Aplicación') {
             steps {
                 script {
@@ -41,15 +36,18 @@ pipeline {
             }
         }
         stage('Desplegar') {
-            //when {
+                //when {
                 // Solo ejecuta esta etapa si las pruebas pasaron
               //  expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            //}
+                //}
             steps {
                 script {
-                    // Usa pm2 para correr la aplicación de manera permanente en producción
-                    sh 'sudo pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
-                    sh 'sudo nohup pm2 start dist/index.js --name backend > pm2.log 2>&1 &'
+                    // Detiene la instancia de la aplicación si está en ejecución
+                    sh 'sudo systemctl stop backend.service || true'
+                    // Copia los archivos necesarios para el despliegue
+                    sh 'sudo cp -r ${env.WORKSPACE}/dist /home/ec2-user/pruebas-software-backend/'
+                    // Inicia el servicio
+                    sh 'sudo systemctl start backend.service'
                 }
             }
         }
