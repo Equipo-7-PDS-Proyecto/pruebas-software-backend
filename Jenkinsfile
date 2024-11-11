@@ -2,7 +2,8 @@ pipeline {
     agent any
     environment {
         PATH = "${env.WORKSPACE}/node_modules/.bin:${env.PATH}"
-        PM2_HOME = '/home/ec2-user/.pm2'
+        PM2_HOME = "${env.WORKSPACE}/.pm2"
+        BUILD_ID=dontKillMe
     }
     tools {
         nodejs 'node js'
@@ -47,8 +48,8 @@ pipeline {
             steps {
                 script {
                     // Usa pm2 para correr la aplicación de manera permanente en producción
-                    sh 'sudo pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
-                    sh 'sudo pm2 start dist/index.js --name backend'  // Cambia 'dist/index.js' según tu archivo de inicio
+                    sh 'npx pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
+                    sh 'npx pm2 start dist/index.js --name backend'  // Cambia 'dist/index.js' según tu archivo de inicio
                 }
             }
         }
