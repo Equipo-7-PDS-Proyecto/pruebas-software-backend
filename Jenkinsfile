@@ -18,7 +18,7 @@ pipeline {
         stage('Correr Tests') {
             steps {
                 // Ejecuta las pruebas y genera un archivo de reporte en formato JUnit
-                sh 'npx mocha --require ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./src/app/test/**/*.ts'
+                sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/test/**/*.js'
             }
             post {
                 always {
