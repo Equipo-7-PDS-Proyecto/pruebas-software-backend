@@ -5,11 +5,6 @@ pipeline {
         // Agrega otras variables de entorno si son necesarias
     }
     stages {
-        stage('Clonar Repositorio') {
-            steps {
-                url: 'https://github.com/Equipo-7-PDS-Proyecto/pruebas-software-backend', credentialsId: '1'
-            }
-        }
         stage('Instalar Dependencias') {
             steps {
                 script {
