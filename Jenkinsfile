@@ -15,19 +15,19 @@ pipeline {
                 }
             }
         }
-        // stage('Correr Tests') {
-        //     steps {
-        //         sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/test/**/*.js'
-        //     }
-        //     post {
-        //         always {
-        //             junit 'reports/test-results.xml'
-        //         }
-        //         failure {
-        //             error('Tests failed')
-        //         }
-        //     }
-        // }
+        stage('Correr Tests') {
+            steps {
+                sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/test/**/*.js'
+            }
+            post {
+                always {
+                    junit 'reports/test-results.xml'
+                }
+                failure {
+                    error('Tests failed')
+                }
+            }
+        }
         stage('Compilar Aplicación') {
             steps {
                 script {
@@ -36,6 +36,10 @@ pipeline {
             }
         }
         stage('Desplegar') {
+            when {
+                //Solo ejecuta esta etapa si las pruebas pasaron
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 script {
                     // Detiene la instancia de la aplicación si está en ejecución
