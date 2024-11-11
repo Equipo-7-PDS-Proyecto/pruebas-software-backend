@@ -17,8 +17,18 @@ pipeline {
         }
         stage('Correr Tests') {
             steps {
-                script {
-                    sh 'npm test'  // Ajusta este comando si tus pruebas usan otro comando
+                // Ejecuta las pruebas y genera un archivo de reporte en formato JUnit
+                sh 'npx mocha --require ts-node/register --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./src/app/test/**/*.ts'
+            }
+            post {
+                always {
+                    // Publica los resultados del reporte JUnit, independientemente de si pasa o falla
+                    junit 'reports/test-results.xml'
+                }
+                failure {
+                    // Si las pruebas fallan, detén el pipeline
+                    echo 'Tests failed. Stopping pipeline.'
+                    error('Tests failed')
                 }
             }
         }
@@ -30,6 +40,10 @@ pipeline {
             }
         }
         stage('Desplegar') {
+            when {
+                // Solo ejecuta esta etapa si las pruebas pasaron
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
             steps {
                 script {
                     // Usa pm2 para correr la aplicación de manera permanente en producción
