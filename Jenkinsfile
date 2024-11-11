@@ -36,16 +36,12 @@ pipeline {
             }
         }
         stage('Desplegar') {
-                //when {
-                // Solo ejecuta esta etapa si las pruebas pasaron
-              //  expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-                //}
             steps {
                 script {
                     // Detiene la instancia de la aplicación si está en ejecución
                     sh 'sudo systemctl stop backend.service || true'
                     // Copia los archivos necesarios para el despliegue
-                    sh 'sudo cp -r ${env.WORKSPACE}/dist /home/ec2-user/pruebas-software-backend/'
+                    sh "sudo cp -r ${WORKSPACE}/dist /home/ec2-user/pruebas-software-backend/"
                     // Inicia el servicio
                     sh 'sudo systemctl start backend.service'
                 }
