@@ -10,7 +10,7 @@
     "start": "pm2 start dist/index.js --name \"my-app\"",
     "stop": "pm2 stop my-app",
     "restart": "pm2 restart my-app"
-},
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Feria-Memorandum/backendDDM.git"
@@ -49,6 +49,7 @@
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "mocha": "^10.7.3",
+    "mocha-junit-reporter": "^2.2.1",
     "ts-node": "^10.9.2",
     "tsc-watch": "^4.4.0",
     "typescript": "^4.9.5"
