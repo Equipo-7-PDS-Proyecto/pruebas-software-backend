@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Clonar Repositorio') {
             steps {
-                git branch: 'remote', url: 'https://github.com/Equipo-7-PDS-Proyecto/pruebas-software-backend', credentialsId: '1'
+                url: 'https://github.com/Equipo-7-PDS-Proyecto/pruebas-software-backend', credentialsId: '1'
             }
         }
         stage('Instalar Dependencias') {
