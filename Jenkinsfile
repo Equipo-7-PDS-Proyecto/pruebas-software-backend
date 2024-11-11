@@ -3,7 +3,7 @@ pipeline {
     environment {
         PATH = "${env.WORKSPACE}/node_modules/.bin:${env.PATH}"
         PM2_HOME = "${env.WORKSPACE}/.pm2"
-        BUILD_ID=dontKillMe
+        BUILD_ID='dontKillMe'
     }
     tools {
         nodejs 'node js'
