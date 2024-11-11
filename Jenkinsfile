@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Correr Tests') {
             steps {
-                sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/test/**/*.js'
+                sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/app/test/**/*.js'
             }
             post {
                 always {
