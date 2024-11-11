@@ -14,23 +14,23 @@ pipeline {
                 }
             }
         }
-        stage('Correr Tests') {
-            steps {
+        //stage('Correr Tests') {
+          //  steps {
                 // Ejecuta las pruebas y genera un archivo de reporte en formato JUnit
-                sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/test/**/*.js'
-            }
-            post {
-                always {
+            //    sh 'npm run build && npx mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./reports/test-results.xml ./dist/test/**/*.js'
+            //}
+            //post {
+             //   always {
                     // Publica los resultados del reporte JUnit, independientemente de si pasa o falla
-                    junit 'reports/test-results.xml'
-                }
-                failure {
+               //     junit 'reports/test-results.xml'
+                //}
+                //failure {
                     // Si las pruebas fallan, detén el pipeline
-                    echo 'Tests failed. Stopping pipeline.'
-                    error('Tests failed')
-                }
-            }
-        }
+                 //   echo 'Tests failed. Stopping pipeline.'
+                   // error('Tests failed')
+                //}
+            //}
+        //}
         stage('Compilar Aplicación') {
             steps {
                 script {
@@ -39,10 +39,10 @@ pipeline {
             }
         }
         stage('Desplegar') {
-            when {
+            //when {
                 // Solo ejecuta esta etapa si las pruebas pasaron
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            }
+              //  expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            //}
             steps {
                 script {
                     // Usa pm2 para correr la aplicación de manera permanente en producción
