@@ -47,8 +47,8 @@ pipeline {
             steps {
                 script {
                     // Usa pm2 para correr la aplicación de manera permanente en producción
-                    sh 'pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
-                    sh 'nohup pm2 start dist/index.js --name backend > pm2.log 2>&1 &'
+                    sh 'sudo pm2 stop backend || true'  // Detener la instancia previa de pm2 si existe
+                    sh 'sudo nohup pm2 start dist/index.js --name backend > pm2.log 2>&1 &'
                 }
             }
         }
