@@ -1,8 +1,7 @@
 pipeline {
     agent any
     environment {
-        NODE_ENV = 'production'
-        // Agrega otras variables de entorno si son necesarias
+        PATH = "${env.WORKSPACE}/node_modules/.bin:${env.PATH}"
     }
     tools {
         nodejs 'node js'
