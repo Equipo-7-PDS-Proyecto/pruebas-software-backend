@@ -6,11 +6,16 @@ Este READ ME
 # Entregable 2
 Subido como entregable_2.pdf
 
+# Entregable 3
+Subido como entregable_3.pdf
+
 # Video E1
 https://www.youtube.com/watch?v=sBvolwws3io
 
 # Video E2
 https://www.youtube.com/watch?v=1XZJAQSP6fc
+
+# Video E3
 
 # Readme de Instalación
 
